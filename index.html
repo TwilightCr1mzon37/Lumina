@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lumina: conversion, income tax, loop and payroll tools in one calm, simple app.">
+  <meta name="theme-color" content="#f5f7fa">
+  <title>Lumina</title>
+
+  <!-- Apply the saved theme before the page paints, so there is no flash of the wrong colours -->
+  <script>
+    try {
+      if (localStorage.getItem("lumina-theme") === "dark") document.documentElement.dataset.theme = "dark";
+    } catch (error) { /* storage unavailable: stay on the light theme */ }
+  </script>
+
+  <!-- Inline favicon, so no extra file is needed -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234a90e2'/%3E%3Ccircle cx='16' cy='16' r='6' fill='white'/%3E%3C/svg%3E">
+
+  <!-- Fonts: Poppins (headings), Inter (body), JetBrains Mono (numbers). System fonts are the fallback. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Poppins:wght@500;600&display=swap">
+
+  <!-- Styles: tokens first, then motion, then the main stylesheet -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Scripts: Lucide icons, theme switch, then the app core and each feature. `defer` keeps this order. -->
+  <script defer src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script defer src="js/theme.js"></script>
+  <script defer src="js/app.js"></script>
+  <script defer src="js/navigation.js"></script>
+  <script defer src="js/conversion.js"></script>
+  <script defer src="js/tax.js"></script>
+  <script defer src="js/loops.js"></script>
+  <script defer src="js/payroll.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app">
+
+    <!-- ========== Sidebar ========== -->
+    <aside class="sidebar" id="sidebar" aria-label="Sidebar">
+      <a class="sidebar__brand" href="#dashboard">
+        <span class="sidebar__brand-mark"><i data-lucide="sparkles" class="icon" aria-hidden="true"></i></span>
+        Lumina
+      </a>
+
+      <nav class="sidebar__nav" aria-label="Main">
+        <a class="nav-link motion" href="#dashboard" data-route="dashboard"><i data-lucide="layout-dashboard" class="icon" aria-hidden="true"></i>Dashboard</a>
+        <a class="nav-link motion" href="#conversion" data-route="conversion"><i data-lucide="arrow-left-right" class="icon" aria-hidden="true"></i>Conversion</a>
+        <a class="nav-link motion" href="#tax" data-route="tax"><i data-lucide="landmark" class="icon" aria-hidden="true"></i>Income Tax</a>
+        <a class="nav-link motion" href="#loops" data-route="loops"><i data-lucide="repeat" class="icon" aria-hidden="true"></i>Loop Lab</a>
+        <a class="nav-link motion" href="#payroll" data-route="payroll"><i data-lucide="users" class="icon" aria-hidden="true"></i>Payroll</a>
+        <a class="nav-link motion" href="#about" data-route="about"><i data-lucide="info" class="icon" aria-hidden="true"></i>About</a>
+      </nav>
+
+      <p class="sidebar__foot">Elegant solutions through simplicity.</p>
+    </aside>
+    <div class="scrim anim-fade-in" id="scrim" hidden></div>
+
+    <!-- ========== Main column ========== -->
+    <div class="main">
+      <header class="header">
+        <button class="icon-btn header__menu motion" id="menu-toggle" type="button" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">
+          <i data-lucide="menu" class="icon" aria-hidden="true"></i>
+        </button>
+        <p class="header__title" id="header-title">Dashboard</p>
+        <div class="header__actions">
+          <p class="header__context">Luminar Studios</p>
+          <button class="icon-btn motion" id="theme-toggle" type="button" aria-label="Dark theme" aria-pressed="false">
+            <i data-lucide="moon" class="icon theme-icon--moon" aria-hidden="true"></i>
+            <i data-lucide="sun" class="icon theme-icon--sun" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+
+      <main class="content" id="main-content" tabindex="-1">
+
+        <!-- ===== Dashboard ===== -->
+        <section class="view is-active" id="dashboard" aria-labelledby="dashboard-title">
+          <div class="hero">
+            <h1 class="hero__title" id="dashboard-title">Elegant solutions through simplicity.</h1>
+            <p class="hero__lead">Lumina brings four everyday tools together in one calm workspace: unit conversion, income tax, loop practice and payroll.</p>
+            <p class="hero__meta">Final project for Introduction to Computing, built with HTML, CSS and JavaScript.</p>
+          </div>
+
+          <div class="grid grid--4">
+            <a class="card module-card motion motion-lift" href="#conversion">
+              <span class="module-card__icon"><i data-lucide="arrow-left-right" class="icon" aria-hidden="true"></i></span>
+              <h2 class="module-card__title">Conversion</h2>
+              <p class="module-card__desc">Convert temperature and length in either direction.</p>
+              <span class="module-card__action">Open <i data-lucide="arrow-right" class="icon" aria-hidden="true"></i></span>
+            </a>
+            <a class="card module-card motion motion-lift" href="#tax">
+              <span class="module-card__icon"><i data-lucide="landmark" class="icon" aria-hidden="true"></i></span>
+              <h2 class="module-card__title">Income Tax</h2>
+              <p class="module-card__desc">Find the tax due and bracket for any taxable income.</p>
+              <span class="module-card__action">Open <i data-lucide="arrow-right" class="icon" aria-hidden="true"></i></span>
+            </a>
+            <a class="card module-card motion motion-lift" href="#loops">
+              <span class="module-card__icon"><i data-lucide="repeat" class="icon" aria-hidden="true"></i></span>
+              <h2 class="module-card__title">Loop Lab</h2>
+              <p class="module-card__desc">Compute a factorial, a sum and an average with three kinds of loop.</p>
+              <span class="module-card__action">Open <i data-lucide="arrow-right" class="icon" aria-hidden="true"></i></span>
+            </a>
+            <a class="card module-card motion motion-lift" href="#payroll">
+              <span class="module-card__icon"><i data-lucide="users" class="icon" aria-hidden="true"></i></span>
+              <h2 class="module-card__title">Payroll</h2>
+              <p class="module-card__desc">Add employees, work out their pay and manage the list.</p>
+              <span class="module-card__action">Open <i data-lucide="arrow-right" class="icon" aria-hidden="true"></i></span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===== Conversion ===== -->
+        <section class="view" id="conversion" aria-labelledby="conversion-title">
+          <div class="page-header">
+            <h1 id="conversion-title">Conversion</h1>
+            <p class="page-header__desc">Choose a conversion, enter a value and see the result straight away.</p>
+          </div>
+          <hr class="divider">
+
+          <div class="card card--narrow">
+            <form id="conversion-form" novalidate>
+              <div class="form-grid">
+                <div class="field form-grid__full">
+                  <label class="field__label" for="conversion-type">Conversion</label>
+                  <select class="field__control" id="conversion-type">
+                    <option value="c-to-f">Celsius to Fahrenheit</option>
+                    <option value="f-to-c">Fahrenheit to Celsius</option>
+                    <option value="m-to-ft">Meters to feet</option>
+                    <option value="ft-to-m">Feet to meters</option>
+                  </select>
+                </div>
+                <div class="field form-grid__full">
+                  <label class="field__label" for="conversion-input" id="conversion-input-label">Temperature in °C</label>
+                  <input class="field__control" id="conversion-input" type="number" step="any" inputmode="decimal" placeholder="e.g. 36.5" aria-describedby="conversion-error" autocomplete="off">
+                  <p class="field__error" id="conversion-error" role="alert"></p>
+                </div>
+              </div>
+              <div class="btn-row">
+                <button class="btn btn--primary motion motion-raise" type="submit">Convert</button>
+                <button class="btn btn--secondary motion motion-raise" id="conversion-swap" type="button"><i data-lucide="arrow-left-right" class="icon" aria-hidden="true"></i>Swap direction</button>
+              </div>
+            </form>
+
+            <div class="result is-empty" id="conversion-result" aria-live="polite">
+              <p class="result__label">Result</p>
+              <p class="result__value">Your result will appear here.</p>
+              <p class="result__detail"></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Income Tax ===== -->
+        <section class="view" id="tax" aria-labelledby="tax-title">
+          <div class="page-header">
+            <h1 id="tax-title">Income Tax</h1>
+            <p class="page-header__desc">Enter your net taxable income to see the tax due and the bracket it falls in.</p>
+          </div>
+          <hr class="divider">
+
+          <div class="grid grid--2">
+            <div class="card">
+              <form id="tax-form" novalidate>
+                <div class="field">
+                  <label class="field__label" for="tax-input">Net taxable income (₱)</label>
+                  <input class="field__control" id="tax-input" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 520000" aria-describedby="tax-error" autocomplete="off">
+                  <p class="field__error" id="tax-error" role="alert"></p>
+                </div>
+                <div class="btn-row">
+                  <button class="btn btn--primary motion motion-raise" type="submit">Calculate tax</button>
+                </div>
+              </form>
+
+              <div class="result is-empty" id="tax-result" aria-live="polite">
+                <p class="result__label">Tax due</p>
+                <p class="result__value">Your result will appear here.</p>
+                <dl class="result-list" hidden>
+                  <div class="result-list__row"><dt>Income</dt><dd data-field="income"></dd></div>
+                  <div class="result-list__row"><dt>Tax bracket</dt><dd data-field="bracket"></dd></div>
+                </dl>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__header">
+                <h2 class="card__title">Tax bracket reference</h2>
+                <p class="card__desc">The table used for every calculation.</p>
+              </div>
+              <button class="collapsible__trigger motion" id="tax-ref-trigger" type="button" aria-expanded="false" aria-controls="tax-ref-panel">
+                Show brackets
+                <i data-lucide="chevron-down" class="icon" aria-hidden="true"></i>
+              </button>
+              <div class="collapsible__panel" id="tax-ref-panel">
+                <div class="collapsible__inner" inert>
+                  <div class="collapsible__body">
+                    <div class="table-wrap">
+                      <table class="data-table">
+                        <caption class="sr-only">Income tax brackets</caption>
+                        <thead>
+                          <tr><th scope="col" class="col-text">Taxable income</th><th scope="col" class="col-text">Tax</th></tr>
+                        </thead>
+                        <tbody id="tax-bracket-rows"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Loop Lab ===== -->
+        <section class="view" id="loops" aria-labelledby="loops-title">
+          <div class="page-header">
+            <h1 id="loops-title">Loop Lab</h1>
+            <p class="page-header__desc">Three ways to repeat a calculation. Each one is independent, so try them in any order.</p>
+          </div>
+          <hr class="divider">
+
+          <div class="grid grid--3">
+            <article class="card">
+              <div class="card__header">
+                <span class="badge">while loop</span>
+                <h2 class="card__title">Factorial</h2>
+                <p class="card__desc">Multiplies every whole number from 1 up to n. The factorial of 0 is 1.</p>
+              </div>
+              <form id="factorial-form" novalidate>
+                <div class="field">
+                  <label class="field__label" for="factorial-input">Number n</label>
+                  <input class="field__control" id="factorial-input" type="number" min="0" max="1000" step="1" inputmode="numeric" placeholder="e.g. 5" aria-describedby="factorial-hint factorial-error" autocomplete="off">
+                  <p class="field__hint" id="factorial-hint">A whole number from 0 to 1,000.</p>
+                  <p class="field__error" id="factorial-error" role="alert"></p>
+                </div>
+                <div class="btn-row"><button class="btn btn--primary btn--block motion motion-raise" type="submit">Compute</button></div>
+              </form>
+              <div class="result is-empty" id="factorial-result" aria-live="polite">
+                <p class="result__label">Result</p>
+                <p class="result__value">Waiting for a number.</p>
+                <p class="result__detail"></p>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card__header">
+                <span class="badge">do-while loop</span>
+                <h2 class="card__title">Sum</h2>
+                <p class="card__desc">Adds every whole number from 1 up to n.</p>
+              </div>
+              <form id="sum-form" novalidate>
+                <div class="field">
+                  <label class="field__label" for="sum-input">Number n</label>
+                  <input class="field__control" id="sum-input" type="number" min="1" max="100000" step="1" inputmode="numeric" placeholder="e.g. 10" aria-describedby="sum-hint sum-error" autocomplete="off">
+                  <p class="field__hint" id="sum-hint">A whole number from 1 to 100,000.</p>
+                  <p class="field__error" id="sum-error" role="alert"></p>
+                </div>
+                <div class="btn-row"><button class="btn btn--primary btn--block motion motion-raise" type="submit">Compute</button></div>
+              </form>
+              <div class="result is-empty" id="sum-result" aria-live="polite">
+                <p class="result__label">Result</p>
+                <p class="result__value">Waiting for a number.</p>
+                <p class="result__detail"></p>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card__header">
+                <span class="badge">for loop</span>
+                <h2 class="card__title">Average</h2>
+                <p class="card__desc">Finds the average of the whole numbers from 1 up to n.</p>
+              </div>
+              <form id="average-form" novalidate>
+                <div class="field">
+                  <label class="field__label" for="average-input">Number n</label>
+                  <input class="field__control" id="average-input" type="number" min="1" max="100000" step="1" inputmode="numeric" placeholder="e.g. 10" aria-describedby="average-hint average-error" autocomplete="off">
+                  <p class="field__hint" id="average-hint">A whole number from 1 to 100,000.</p>
+                  <p class="field__error" id="average-error" role="alert"></p>
+                </div>
+                <div class="btn-row"><button class="btn btn--primary btn--block motion motion-raise" type="submit">Compute</button></div>
+              </form>
+              <div class="result is-empty" id="average-result" aria-live="polite">
+                <p class="result__label">Result</p>
+                <p class="result__value">Waiting for a number.</p>
+                <p class="result__detail"></p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ===== Payroll ===== -->
+        <section class="view" id="payroll" aria-labelledby="payroll-title">
+          <div class="page-header">
+            <h1 id="payroll-title">Payroll</h1>
+            <p class="page-header__desc">Add an employee to calculate gross and net pay. Delete a line by its number.</p>
+          </div>
+          <hr class="divider">
+
+          <div class="stack">
+          <div class="card">
+            <div class="card__header">
+              <h2 class="card__title"><i data-lucide="user-plus" class="icon" aria-hidden="true"></i>Add employee</h2>
+            </div>
+            <form id="payroll-form" novalidate>
+              <div class="form-grid">
+                <div class="field form-grid__full">
+                  <label class="field__label" for="employee-name">Employee name</label>
+                  <input class="field__control" id="employee-name" type="text" maxlength="60" placeholder="e.g. Gehlee Dangca" aria-describedby="employee-name-error" autocomplete="off">
+                  <p class="field__error" id="employee-name-error" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="days-worked">Days worked</label>
+                  <input class="field__control" id="days-worked" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 22" aria-describedby="days-worked-error" autocomplete="off">
+                  <p class="field__error" id="days-worked-error" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="daily-rate">Daily rate (₱)</label>
+                  <input class="field__control" id="daily-rate" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 650" aria-describedby="daily-rate-error" autocomplete="off">
+                  <p class="field__error" id="daily-rate-error" role="alert"></p>
+                </div>
+                <div class="field form-grid__full">
+                  <label class="field__label" for="deduction">Deduction amount (₱)</label>
+                  <input class="field__control" id="deduction" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 500" aria-describedby="deduction-error" autocomplete="off">
+                  <p class="field__error" id="deduction-error" role="alert"></p>
+                </div>
+              </div>
+              <div class="btn-row">
+                <button class="btn btn--primary motion motion-raise" type="submit"><i data-lucide="plus" class="icon" aria-hidden="true"></i>Add employee</button>
+              </div>
+            </form>
+            <div class="feedback" id="payroll-feedback" role="status"></div>
+          </div>
+
+          <div class="card">
+            <div class="card__header">
+              <h2 class="card__title"><i data-lucide="list" class="icon" aria-hidden="true"></i>Payroll list</h2>
+              <p class="card__desc" id="payroll-count">0 employees</p>
+            </div>
+
+            <div class="table-wrap">
+              <table class="data-table">
+                <caption class="sr-only">Payroll list</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col" class="col-text">Employee Name</th>
+                    <th scope="col">Days Worked</th>
+                    <th scope="col">Daily Rate</th>
+                    <th scope="col">Gross Pay</th>
+                    <th scope="col">Deduction</th>
+                    <th scope="col">Net Pay</th>
+                  </tr>
+                </thead>
+                <tbody id="payroll-body"></tbody>
+              </table>
+            </div>
+
+            <div class="totals">
+              <div class="totals__item"><p class="totals__label">Total gross pay</p><p class="totals__value" id="total-gross">₱0.00</p></div>
+              <div class="totals__item"><p class="totals__label">Total deductions</p><p class="totals__value" id="total-deductions">₱0.00</p></div>
+              <div class="totals__item totals__item--net"><p class="totals__label">Total net pay</p><p class="totals__value" id="total-net">₱0.00</p></div>
+            </div>
+
+            <hr class="divider">
+
+            <form class="payroll-delete" id="delete-form" novalidate>
+              <div class="field">
+                <label class="field__label" for="delete-line">Line number to delete</label>
+                <input class="field__control" id="delete-line" type="number" min="1" step="1" inputmode="numeric" placeholder="e.g. 1" aria-describedby="delete-error" autocomplete="off">
+                <p class="field__error" id="delete-error" role="alert"></p>
+              </div>
+              <button class="btn btn--danger motion motion-raise" type="submit"><i data-lucide="trash-2" class="icon" aria-hidden="true"></i>Delete employee</button>
+            </form>
+          </div>
+          </div>
+        </section>
+
+        <!-- ===== About (structure only; content to be added by the author) ===== -->
+        <section class="view" id="about" aria-labelledby="about-title">
+          <div class="page-header">
+            <h1 id="about-title">About</h1>
+            <p class="page-header__desc">Placeholder sections. Replace each one with your own details.</p>
+          </div>
+          <hr class="divider">
+
+          <div class="grid grid--2">
+            <div class="card">
+<div class="placeholder__avatar">
+  <img src="assets/icons/cfundal.jpg" alt="User avatar" class="icon">
+</div>
+              <h2 class="card__title">Christian Jay D. Fundal</h2>
+              <p class="card__desc">BS Computer Science 1-A, Ateneo De Davao University</p>
+            </div>
+            <div class="card">
+              <h2 class="card__title">About me</h2>
+              <div class="placeholder">Hi! I'm Christian Jay D. Fundal, 
+                a first-year Bachelor of Science in Computer Science student at Ateneo de Davao University. 
+                I have a passion for software development, user interface design, and creating meaningful digital experiences. 
+                Through Lumina, I sought to combine clean architecture, modern design principles, 
+                and practical functionality into a project that reflects both my technical skills and my commitment to continuous learning.</div>
+            </div>
+            <div class="card">
+              <h2 class="card__title">About this project</h2>
+              <div class="placeholder">Lumina was created as a final project for the Introduction to Computing course, 
+                designed to bring together multiple programming concepts into a single, intuitive, and visually engaging web application. 
+                More than just an academic requirement, it became an opportunity for me to apply clean coding practices, modular software architecture, 
+                and user-centered design principles. Building Lumina strengthened my technical skills in HTML, CSS, and JavaScript while teaching me the importance of planning, 
+                maintainability, accessibility, and creating software that balances functionality with a meaningful user experience.</div>
+            </div>
+            <div class="card">
+              <h2 class="card__title">Contact</h2>
+              <div class="placeholder">cfundal@addu.edu.ph</div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <footer class="footer">
+        <span>Lumina · Elegant solutions through simplicity.</span>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
