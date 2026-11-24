@@ -1,0 +1,138 @@
+/* ==========================================================================
+   Lumina · Motion
+   --------------------------------------------------------------------------
+   All keyframes, transition helpers and motion utilities live here.
+   Rules the whole app follows:
+   - Nothing runs longer than --duration-slow (250ms).
+   - Only fade, slide and a small lift. No spinning, bouncing or flashing.
+   - Hover effects apply only on devices that can hover, so touch screens
+     never get "stuck" in a hovered state.
+   - Everything switches off for people who ask for reduced motion.
+
+   Sections
+   1. Keyframes
+   2. Entrance classes
+   3. Transition helper
+   4. Hover and press utilities
+   5. Reduced motion
+   ========================================================================== */
+
+/* ---------- 1. Keyframes ---------- */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* A view arriving: fades in while sliding up a short distance */
+@keyframes view-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Panel content appearing after the person acts (results, collapsible body) */
+@keyframes reveal-down {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* A table row being added to the payroll list */
+@keyframes row-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ---------- 2. Entrance classes ---------- */
+
+/* Added by navigation.js to the view that is becoming active */
+.anim-view-enter {
+  animation: view-enter var(--duration-slow) var(--ease-standard) both;
+}
+
+/* Added by modules when a result or message is shown or updated */
+.anim-reveal {
+  animation: reveal-down var(--duration-base) var(--ease-standard) both;
+}
+
+/* Added by payroll.js to a newly inserted row */
+.anim-row-enter {
+  animation: row-enter var(--duration-base) var(--ease-standard) both;
+}
+
+/* Mobile scrim fading in behind the open sidebar */
+.anim-fade-in {
+  animation: fade-in var(--duration-base) var(--ease-standard) both;
+}
+
+/* ---------- 3. Transition helper ---------- */
+
+/* Interactive elements share one transition so they all feel the same.
+   Only properties that change are listed, which keeps repaints cheap. */
+.motion {
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard),
+    background-color var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    opacity var(--duration-fast) var(--ease-standard);
+}
+
+/* ---------- 4. Hover and press utilities ---------- */
+
+@media (hover: hover) and (pointer: fine) {
+  /* Cards: lift, scale slightly, and brighten */
+  .motion-lift:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: var(--shadow-card-hover);
+    background-color: var(--glass-panel-hover);
+  }
+
+  /* Buttons: a smaller lift so they feel pressable, not floating */
+  .motion-raise:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Pressing always settles the element back down */
+.motion-raise:active,
+.motion-lift:active {
+  transform: translateY(0) scale(1);
+  transition-duration: var(--duration-fast);
+}
+
+/* ---------- 5. Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .motion-lift:hover,
+  .motion-raise:hover {
+    transform: none;
+  }
+}
